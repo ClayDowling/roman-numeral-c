@@ -1,6 +1,7 @@
 PACKAGE_NAME=roman-numeral
 SUBDIRS=src test
-VPATH=src
+
+.PHONY: all src test
 
 all: test
 
