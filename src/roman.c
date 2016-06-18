@@ -24,14 +24,18 @@ static int should_subtract(unsigned left, unsigned right)
 static int rn_isvalid(int *candidate, int len)
 {
 	int repeats = 0;
+	int norepeats = 0;
 	int i;
 
 	for(i = 0; i < len; ++i) {
 		if (is_appear_many(candidate[i])) {
 			repeats++;
+			norepeats = 0;
 			if (repeats > 3) return 0;
 		} else {
 			repeats = 0;
+			norepeats++;
+			if (norepeats > 1) return 0;
 		}
 	}
 	return 1;
