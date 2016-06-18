@@ -186,5 +186,8 @@ char* rn_toroman(int num)
 		}
 	}
 
+	if (roman[0] == 0) {
+		strcpy(roman, "NaN");
+	}
 	return strdup(roman);
 }
