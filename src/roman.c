@@ -1,7 +1,10 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "roman.h"
 
+static int roman_values[] = {500, 100, 50, 10, 5, 1};
+int roman_values_len = sizeof(roman_values) / sizeof(int);
 
 static int is_appear_many(unsigned digit)
 {
@@ -70,6 +73,14 @@ static char rn_romandigit(int v)
 			return 'I';
 		case 5:
 			return 'V';
+		case 10:
+			return 'X';
+		case 50:
+			return 'L';
+		case 100:
+			return 'C';
+		case 500:
+			return 'D';
 		default:
 			return '\0';
 	}
@@ -94,6 +105,40 @@ static unsigned rn_sumdigits(int *digits, int size)
 	return (unsigned)total;
 }
 
+static int rn_can_display_with_subtraction(int target)
+{
+	int subtractible[] = {400, 90, 40, 9, 4};
+	int blocker[]      = {500, 100,50, 10, 5};
+	int len = sizeof(subtractible) / sizeof(int);
+	int i;
+
+	for(i=0; i < len; ++i) {
+		if (target >= subtractible[i] && target < blocker[i]) {
+			return subtractible[i];
+		}
+	}
+
+	return 0;
+}
+
+static char* rn_subtractible_roman_numeral(int value)
+{
+	switch(value) {
+		case 400:
+			return "CD";
+		case 90:
+			return "XC";
+		case 40:
+			return "XL";
+		case 9:
+			return "IX";
+		case 4:
+			return "IV";
+		default:
+			return "";
+	}
+}
+
 unsigned rn_toint(const char* numeral)
 {
 	unsigned pos;
@@ -115,23 +160,29 @@ unsigned rn_toint(const char* numeral)
 char* rn_toroman(int num)
 {
 	static char roman[20];
-	int parts[] = {5, 1};
-	int numparts = sizeof(parts) / sizeof(int);
 	int roman_pos = 0;
 	int parts_pos;
 	int part_candidate;
+	int subtractible;
 
 	memset((void*)roman, 0, sizeof(roman));
 
 	for(parts_pos = 0; 
 			num > 0 && 
-			parts_pos < numparts && 
+			parts_pos < roman_values_len && 
 			roman_pos < (sizeof(roman) - 1); 
 	    ++parts_pos) {
-		part_candidate = parts[parts_pos];
+		part_candidate = roman_values[parts_pos];
 		while (part_candidate <= num) {
-			roman[roman_pos++] = rn_romandigit(part_candidate);
-			num -= part_candidate;
+			subtractible = rn_can_display_with_subtraction(num);
+			if (subtractible != 0) {
+				strcat(roman, rn_subtractible_roman_numeral(subtractible));
+				roman_pos += 2;
+				num -= subtractible;
+			} else {
+				roman[roman_pos++] = rn_romandigit(part_candidate);
+				num -= part_candidate;
+			}
 		}
 	}
 
