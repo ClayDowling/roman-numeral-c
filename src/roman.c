@@ -63,6 +63,18 @@ static unsigned rn_digit(char rn)
 	}
 }
 
+static char rn_romandigit(int v)
+{
+	switch(v) {
+		case 1:
+			return 'I';
+		case 5:
+			return 'V';
+		default:
+			return '\0';
+	}
+}
+
 static unsigned rn_sumdigits(int *digits, int size)
 {
 	int i;
@@ -98,4 +110,30 @@ unsigned rn_toint(const char* numeral)
 	if (rn_isvalid(values, len) == 0) return INVALID_NUMERAL;
 	return rn_sumdigits(values, len);
 
+}
+
+char* rn_toroman(int num)
+{
+	static char roman[20];
+	int parts[] = {5, 1};
+	int numparts = sizeof(parts) / sizeof(int);
+	int roman_pos = 0;
+	int parts_pos;
+	int part_candidate;
+
+	memset((void*)roman, 0, sizeof(roman));
+
+	for(parts_pos = 0; 
+			num > 0 && 
+			parts_pos < numparts && 
+			roman_pos < (sizeof(roman) - 1); 
+	    ++parts_pos) {
+		part_candidate = parts[parts_pos];
+		while (part_candidate <= num) {
+			roman[roman_pos++] = rn_romandigit(part_candidate);
+			num -= part_candidate;
+		}
+	}
+
+	return strdup(roman);
 }
