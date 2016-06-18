@@ -195,7 +195,10 @@ char* rn_add(const char *lhs, const char *rhs)
 {
 	unsigned ilhs;
 	unsigned irhs;
+	unsigned sum;
 
+	if (NULL == lhs) return NULL;
+	if (NULL == rhs) return NULL;
 	ilhs = rn_toint(lhs);
 	irhs = rn_toint(rhs);
 
