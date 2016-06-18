@@ -5,6 +5,12 @@
 
 #include "../src/roman.h"
 
+START_TEST(rn_toint_givenJ_returnsINVALIDNUMERAL)
+{
+	ck_assert_int_eq(rn_toint("J"), INVALID_NUMERAL);
+}
+END_TEST
+
 START_TEST(rn_toint_givenI_returns1)
 {
 	ck_assert_int_eq(rn_toint("I"), 1);
@@ -17,9 +23,15 @@ START_TEST(rn_toint_givenV_returns5)
 }
 END_TEST
 
-START_TEST(rn_toint_givenJ_returnsINVALIDNUMERAL)
+START_TEST(rn_toint_givenX_returns10)
 {
-	ck_assert_int_eq(rn_toint("J"), INVALID_NUMERAL);
+	ck_assert_int_eq(rn_toint("X"), 10);
+}
+END_TEST
+
+START_TEST(rn_toint_givenL_returns50)
+{
+	ck_assert_int_eq(rn_toint("L"), 50);
 }
 END_TEST
 
@@ -31,9 +43,11 @@ Suite *roman_suite(void)
 	s = suite_create("Roman");
 
 	tc_convert_single = tcase_create("Single Digits");
+	tcase_add_test(tc_convert_single, rn_toint_givenJ_returnsINVALIDNUMERAL);
 	tcase_add_test(tc_convert_single, rn_toint_givenI_returns1);
 	tcase_add_test(tc_convert_single, rn_toint_givenV_returns5);
-	tcase_add_test(tc_convert_single, rn_toint_givenJ_returnsINVALIDNUMERAL);
+	tcase_add_test(tc_convert_single, rn_toint_givenX_returns10);
+	tcase_add_test(tc_convert_single, rn_toint_givenL_returns50);
 
 	suite_add_tcase(s, tc_convert_single);
 
