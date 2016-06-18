@@ -3,36 +3,38 @@
 #include "roman.h"
 
 
-/*
-int is_appear_many(unsigned digit)
+static int is_appear_many(unsigned digit)
 {
 	switch(digit) {
 	case 1:
+		return 1;
 	case 10:
 	case 100:
-		return 1;
 	default:
 		return 0;
 	}
 }
 
-int is_appear_once(unsigned digit)
-{
-	switch(digit) {
-	case 5:
-	case 50:
-	case 500:
-		return 1;
-	default:
-		return 0;
-	}
-}
-*/
-
-int should_subtract(unsigned left, unsigned right)
+static int should_subtract(unsigned left, unsigned right)
 {
 	if (left < right) return 1;
 	return 0;
+}
+
+static int rn_isvalid(int *candidate, int len)
+{
+	int repeats = 0;
+	int i;
+
+	for(i = 0; i < len; ++i) {
+		if (is_appear_many(candidate[i])) {
+			repeats++;
+			if (repeats > 3) return 0;
+		} else {
+			repeats = 0;
+		}
+	}
+	return 1;
 }
 
 static unsigned rn_digit(char rn)
@@ -55,12 +57,12 @@ static unsigned rn_digit(char rn)
 	}
 }
 
-static unsigned rn_sumdigits(int *digits)
+static unsigned rn_sumdigits(int *digits, int size)
 {
 	int i;
 	int total = 0;
 
-	for(i=0; digits[i]; ++i) {
+	for(i=0; i < size; ++i) {
 		if (0 == digits[i]) {
 			return INVALID_NUMERAL;
 		}
@@ -87,5 +89,7 @@ unsigned rn_toint(const char* numeral)
 		values[pos] = rn_digit(numeral[pos]);
 	}
 
-	return rn_sumdigits(values);
+	if (rn_isvalid(values, len) == 0) return INVALID_NUMERAL;
+	return rn_sumdigits(values, len);
+
 }

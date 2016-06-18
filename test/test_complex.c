@@ -6,39 +6,22 @@
 #include "tcase_roman.h"
 #include "../src/roman.h"
 
-START_TEST(rn_toint_givenII_returns2)
-{
-	ck_assert_int_eq(rn_toint("II"), 2);
-}
-END_TEST
+char *test_value[]   = {"II", "VI", "IV", "IX", "VII", "IIII"};
+int expected_value[] = {  2 ,   6 ,   4 ,   9 ,    7 , INVALID_NUMERAL};
 
-START_TEST(rn_toint_givenVI_returns6)
+START_TEST(rn_toint_translates_correctly)
 {
-	ck_assert_int_eq(rn_toint("VI"), 6);
-}
-END_TEST
-
-START_TEST(rn_toint_givenIV_returns4)
-{
-	ck_assert_int_eq(rn_toint("IV"), 4);
-}
-END_TEST
-
-START_TEST(rn_toint_givenIX_returns9)
-{
-	ck_assert_int_eq(rn_toint("IX"), 9);
+	ck_assert_int_eq(rn_toint(test_value[_i]), expected_value[_i]);
 }
 END_TEST
 
 TCase* tcase_complex_numerals(void)
 {
 	TCase *tc;
+	int num_cases = sizeof(expected_value) / sizeof(int);
 
 	tc = tcase_create("Complex Numerals");
-	tcase_add_test(tc, rn_toint_givenII_returns2);
-	tcase_add_test(tc, rn_toint_givenVI_returns6);
-	tcase_add_test(tc, rn_toint_givenIV_returns4);
-	tcase_add_test(tc, rn_toint_givenIX_returns9);
+	tcase_add_loop_test(tc, rn_toint_translates_correctly, 0, num_cases);
 
 	return tc;
 }
