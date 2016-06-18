@@ -8,5 +8,6 @@
 #include <check.h>
 
 TCase* tcase_single_digits(void);
+TCase* tcase_complex_numerals(void);
 
 #endif
