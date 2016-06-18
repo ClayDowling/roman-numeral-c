@@ -10,5 +10,6 @@
 
 unsigned rn_toint(const char*);
 char* rn_toroman(int);
+char* rn_add(const char*, const char*);
 
 #endif

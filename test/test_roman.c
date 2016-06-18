@@ -15,6 +15,7 @@ Suite *roman_suite(void)
 	suite_add_tcase(s, tcase_single_digits());
 	suite_add_tcase(s, tcase_complex_numerals());
 	suite_add_tcase(s, tcase_toarabic());
+	suite_add_tcase(s, tcase_operators());
 
 	return s;
 }

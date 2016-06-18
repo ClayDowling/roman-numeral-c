@@ -190,3 +190,14 @@ char* rn_toroman(int num)
 	}
 	return strdup(roman);
 }
+
+char* rn_add(const char *lhs, const char *rhs)
+{
+	unsigned ilhs;
+	unsigned irhs;
+
+	ilhs = rn_toint(lhs);
+	irhs = rn_toint(rhs);
+
+	return rn_toroman(ilhs + irhs);
+}

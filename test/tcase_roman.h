@@ -10,5 +10,6 @@
 TCase* tcase_single_digits(void);
 TCase* tcase_complex_numerals(void);
 TCase* tcase_toarabic(void);
+TCase* tcase_operators(void);
 
 #endif

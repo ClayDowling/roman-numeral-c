@@ -3,7 +3,8 @@ CFLAGS != pkg-config --cflags check
 LIBS != pkg-config --libs check
 VPATH=../src
 
-TEST_OBJECTS = test_roman.o test_single.o test_complex.o test_arabic.o
+TEST_OBJECTS = test_roman.o test_single.o test_complex.o test_arabic.o \
+	       test_operators.o
 
 test: test_roman
 	./test_roman
