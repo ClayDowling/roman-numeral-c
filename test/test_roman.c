@@ -17,6 +17,12 @@ START_TEST(rn_toint_givenV_returns5)
 }
 END_TEST
 
+START_TEST(rn_toint_givenJ_returnsINVALIDNUMERAL)
+{
+	ck_assert_int_eq(rn_toint("J"), INVALID_NUMERAL);
+}
+END_TEST
+
 Suite *roman_suite(void)
 {
 	Suite *s;
@@ -27,6 +33,7 @@ Suite *roman_suite(void)
 	tc_convert_single = tcase_create("Single Digits");
 	tcase_add_test(tc_convert_single, rn_toint_givenI_returns1);
 	tcase_add_test(tc_convert_single, rn_toint_givenV_returns5);
+	tcase_add_test(tc_convert_single, rn_toint_givenJ_returnsINVALIDNUMERAL);
 
 	suite_add_tcase(s, tc_convert_single);
 
