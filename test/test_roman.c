@@ -35,6 +35,12 @@ START_TEST(rn_toint_givenL_returns50)
 }
 END_TEST
 
+START_TEST(rn_toint_givenC_returns100)
+{
+	ck_assert_int_eq(rn_toint("C"), 100);
+}
+END_TEST
+
 Suite *roman_suite(void)
 {
 	Suite *s;
@@ -48,6 +54,7 @@ Suite *roman_suite(void)
 	tcase_add_test(tc_convert_single, rn_toint_givenV_returns5);
 	tcase_add_test(tc_convert_single, rn_toint_givenX_returns10);
 	tcase_add_test(tc_convert_single, rn_toint_givenL_returns50);
+	tcase_add_test(tc_convert_single, rn_toint_givenC_returns100);
 
 	suite_add_tcase(s, tc_convert_single);
 
