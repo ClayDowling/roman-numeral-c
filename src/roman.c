@@ -14,6 +14,7 @@ static unsigned rn_digit(char rn)
 		case 'C':
 			return 100;
 		case 'D':
+			return 500;
 		default:
 			return INVALID_NUMERAL;
 	}
