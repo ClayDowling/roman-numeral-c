@@ -6,8 +6,10 @@
 #include "tcase_roman.h"
 #include "../src/roman.h"
 
-char *test_value[]   = {"II", "VI", "IV", "IX", "VII", "IIII"};
-int expected_value[] = {  2 ,   6 ,   4 ,   9 ,    7 , INVALID_NUMERAL};
+char *test_value[]   = {"II", "VI", "IV", "IX", "VII", "IIII",
+	"XXXX"};
+int expected_value[] = {  2 ,   6 ,   4 ,   9 ,    7 , INVALID_NUMERAL,
+	INVALID_NUMERAL};
 
 START_TEST(rn_toint_translates_correctly)
 {

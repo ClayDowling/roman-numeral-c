@@ -7,8 +7,8 @@ static int is_appear_many(unsigned digit)
 {
 	switch(digit) {
 	case 1:
-		return 1;
 	case 10:
+		return 1;
 	case 100:
 	default:
 		return 0;
