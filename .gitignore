@@ -16,3 +16,10 @@ Makefile.in
 /install-sh
 /missing
 /stamp-h1
+
+# C intermedia files to skip
+
+*.o
+*~
+*.swp
+build/
