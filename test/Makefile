@@ -6,7 +6,7 @@ VPATH=../src
 test: test_roman
 	./test_roman
 
-test_roman: roman.o test_roman.o
+test_roman: roman.o test_roman.o test_single.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 clean:
