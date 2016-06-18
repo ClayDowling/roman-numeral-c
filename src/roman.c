@@ -33,6 +33,8 @@ static int rn_isvalid(int *candidate, int len)
 			norepeats = 0;
 			if (repeats > 3) return 0;
 		} else {
+			if (repeats > 1 && candidate[i-1] < candidate[i])
+				return 0;
 			repeats = 0;
 			norepeats++;
 			if (norepeats > 1) return 0;
