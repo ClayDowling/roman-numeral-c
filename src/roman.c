@@ -22,5 +22,11 @@ static unsigned rn_digit(char rn)
 
 unsigned rn_toint(const char* numeral)
 {
-	return rn_digit(numeral[0]);
+	int total = 0;
+	char *pos = numeral;
+
+	for(pos = numeral; *pos; ++pos) {
+		total += rn_digit(*pos);
+	}
+	return total;
 }

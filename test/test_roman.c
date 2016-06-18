@@ -13,6 +13,7 @@ Suite *roman_suite(void)
 	s = suite_create("Roman Numerals");
 
 	suite_add_tcase(s, tcase_single_digits());
+	suite_add_tcase(s, tcase_complex_numerals());
 
 	return s;
 }
