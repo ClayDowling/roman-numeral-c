@@ -3,6 +3,8 @@
 #include <string.h>
 #include "roman.h"
 
+const char *OVERFLOW = "Degenero";
+
 static unsigned roman_values[] = {500, 100, 50, 10, 5, 1};
 unsigned roman_values_len = sizeof(roman_values) / sizeof(unsigned);
 
@@ -241,7 +243,7 @@ char* rn_add(const char *lhs, const char *rhs)
 
 	sum = ilhs + irhs;
 	if (sum > RN_MAX) {
-		return strdup("OVERFLOW");
+		return strdup(OVERFLOW);
 	}
 	return rn_toroman(ilhs + irhs);
 }

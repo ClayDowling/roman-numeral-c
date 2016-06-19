@@ -24,9 +24,9 @@ START_TEST(rn_add_givenNULLrhs_returnsNull)
 }
 END_TEST
 
-START_TEST(rn_add_onOverflow_returnsOVERFLOW)
+START_TEST(rn_add_onOverflow_returnsDegenero)
 {
-	ck_assert_str_eq(rn_add("D", "D"), "OVERFLOW");
+	ck_assert_str_eq(rn_add("D", "D"), "Degenero");
 }
 END_TEST
 
@@ -45,7 +45,7 @@ TCase* tcase_operators(void)
 	tcase_add_test(tc, rn_add_givenIVandV_returnsIX);
 	tcase_add_test(tc, rn_add_givenNULLlhs_returnsNull);
 	tcase_add_test(tc, rn_add_givenNULLrhs_returnsNull);
-	tcase_add_test(tc, rn_add_onOverflow_returnsOVERFLOW);
+	tcase_add_test(tc, rn_add_onOverflow_returnsDegenero);
 	tcase_add_test(tc, rn_add_givenDCCCandXCIX_returnsRNMAX);
 
 	return tc;
