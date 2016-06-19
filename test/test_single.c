@@ -5,8 +5,9 @@
 
 #include "../src/roman.h"
 
-static char *test_value[] = {"J", "I", "V", "X", "L", "C", "D"};
-static int expected_value[] = {INVALID_NUMERAL, 1, 5, 10, 50, 100, 500};
+static char *test_value[] = {"J", "I", "V", "X", "L", "C", "D", NULL};
+static int expected_value[] = {INVALID_NUMERAL, 1, 5, 10, 50, 100, 500, 
+	INVALID_NUMERAL};
 
 START_TEST(rn_toint_singledigit_test)
 {

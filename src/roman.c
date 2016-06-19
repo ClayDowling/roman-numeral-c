@@ -144,6 +144,8 @@ unsigned rn_toint(const char* numeral)
 	int *values;
 	int len;
 
+	if (NULL == numeral) return INVALID_NUMERAL;
+
 	len = strlen(numeral);
 	values = (int*)calloc(len + 1, sizeof(int));
 
