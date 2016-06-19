@@ -7,13 +7,24 @@
 #include "../src/roman.h"
 
 static char *test_value[]   = {"II", "VI", "IV", "IX", "VII", "IIII",
-	"XXXX"          , "CCCC",         "VV"           , "IIV"};
+	"XXXX"          , "CCCC",         "VV"           , "IIV",
+	"XCIX"};
 static int expected_value[] = {  2 ,   6 ,   4 ,   9 ,    7 , INVALID_NUMERAL,
-	INVALID_NUMERAL, INVALID_NUMERAL, INVALID_NUMERAL, INVALID_NUMERAL};
+	INVALID_NUMERAL, INVALID_NUMERAL, INVALID_NUMERAL, INVALID_NUMERAL,
+	99};
 
 START_TEST(rn_toint_translates_correctly)
 {
-	ck_assert_int_eq(rn_toint(test_value[_i]), expected_value[_i]);
+	char *test;
+	char *actual;
+	int expected;
+
+	test = test_value[_i];
+	expected = expected_value[_i];
+	actual = rn_toint(test);
+	ck_assert_msg(actual == expected, 
+			"rn_toint(%s) expected: %d actual: %d",
+			test, expected, actual);
 }
 END_TEST
 

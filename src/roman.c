@@ -1,11 +1,16 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "roman.h"
 
-static int roman_values[] = {500, 100, 50, 10, 5, 1};
-int roman_values_len = sizeof(roman_values) / sizeof(int);
+static unsigned roman_values[] = {500, 100, 50, 10, 5, 1};
+unsigned roman_values_len = sizeof(roman_values) / sizeof(unsigned);
 
-static int is_appear_many(unsigned digit)
+char *subtractable_numerals[] = {"CD", "XC", "XL", "IX", "IV", ""};
+unsigned subtractable_values[] = {400, 90, 40, 9, 4, 0};
+unsigned subtractable_len = sizeof(subtractable_values) / sizeof(unsigned);
+
+static int can_repeat(unsigned digit)
 {
 	switch(digit) {
 	case 1:
@@ -17,9 +22,25 @@ static int is_appear_many(unsigned digit)
 	}
 }
 
-static int should_subtract(unsigned left, unsigned right)
+static unsigned should_subtract(unsigned left, unsigned right)
 {
-	if (left < right) return 1;
+	switch(right) {
+	case 500:
+		if (100 == left) return 400;
+		break;
+	case 100:
+		if (10 == left) return 90;
+		break;
+	case 50:
+		if (10 == left) return 40;
+		break;
+	case 10:
+		if (1 == left) return 9;
+		break;
+	case 5:
+		if (1 == left) return 4;
+		break;
+	}
 	return 0;
 }
 
@@ -28,18 +49,26 @@ static int rn_isvalid(int *candidate, int len)
 	int repeats = 0;
 	int norepeats = 0;
 	int i;
+	int last = 0;
 
 	for(i = 0; i < len; ++i) {
-		if (is_appear_many(candidate[i])) {
-			repeats++;
+		if (can_repeat(candidate[i])) {
+			if (last == 0 || candidate[i] == last)
+				repeats++;
+			last = candidate[i];
 			norepeats = 0;
-			if (repeats > 3) return 0;
+			if (repeats > 3) {
+			       	return 0;
+			}
 		} else {
-			if (repeats > 1 && candidate[i-1] < candidate[i])
+			if (repeats > 1 && candidate[i-1] < candidate[i]) {
 				return 0;
+			}
 			repeats = 0;
 			norepeats++;
-			if (norepeats > 1) return 0;
+			if (norepeats > 1) {
+				return 0;
+			}
 		}
 	}
 	return 1;
@@ -87,17 +116,23 @@ static char rn_romandigit(int v)
 
 static unsigned rn_sumdigits(int *digits, int size)
 {
-	int i;
+	unsigned i;
 	int total = 0;
+	unsigned subtract;
 
 	for(i=0; i < size; ++i) {
 		if (0 == digits[i]) {
 			return INVALID_NUMERAL;
 		}
-		if (should_subtract(digits[i], digits[i+1]))
-			total -= digits[i];
-		else 
+		
+		subtract = should_subtract(digits[i], digits[i+1]);
+		if (subtract) {
+			total += subtract;
+			++i;
+		}
+		else {
 			total += digits[i];
+		}
 	}
 
 	if (total < 1) return INVALID_NUMERAL;
@@ -204,5 +239,9 @@ char* rn_add(const char *lhs, const char *rhs)
 	ilhs = rn_toint(lhs);
 	irhs = rn_toint(rhs);
 
+	sum = ilhs + irhs;
+	if (sum > RN_MAX) {
+		return strdup("OVERFLOW");
+	}
 	return rn_toroman(ilhs + irhs);
 }
