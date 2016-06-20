@@ -247,3 +247,18 @@ char* rn_add(const char *lhs, const char *rhs)
 	}
 	return rn_toroman(ilhs + irhs);
 }
+
+char* rn_subtract(const char *lhs, const char *rhs)
+{
+	unsigned ilhs;
+	unsigned irhs;
+	int difference;
+
+	if (NULL == lhs) return NULL;
+	if (NULL == rhs) return NULL;
+	ilhs = rn_toint(lhs);
+	irhs = rn_toint(rhs);
+
+	return rn_toroman(ilhs - irhs);
+}
+

@@ -36,6 +36,30 @@ START_TEST(rn_add_givenDCCCandXCIX_returnsRNMAX)
 }
 END_TEST
 
+START_TEST(rn_subtract_givenXandIV_returnsVI)
+{
+	ck_assert_str_eq(rn_subtract("X", "IV"), "VI");
+}
+END_TEST
+
+START_TEST(rn_subtract_givenCandXCIX_returnsI)
+{
+	ck_assert_str_eq(rn_subtract("C", "XCIX"), "I");
+}
+END_TEST
+
+START_TEST(rn_subtract_givenNULLandIV_returnsNULL)
+{
+	ck_assert_ptr_eq(rn_subtract(NULL, "IV"), NULL);
+}
+END_TEST
+
+START_TEST(rn_subtract_givenIVandNULL_returnsNULL)
+{
+	ck_assert_ptr_eq(rn_subtract("IV", NULL), NULL);
+}
+END_TEST
+
 
 TCase* tcase_operators(void)
 {
@@ -47,6 +71,10 @@ TCase* tcase_operators(void)
 	tcase_add_test(tc, rn_add_givenNULLrhs_returnsNull);
 	tcase_add_test(tc, rn_add_onOverflow_returnsDegenero);
 	tcase_add_test(tc, rn_add_givenDCCCandXCIX_returnsRNMAX);
+	tcase_add_test(tc, rn_subtract_givenXandIV_returnsVI);
+	tcase_add_test(tc, rn_subtract_givenCandXCIX_returnsI);
+	tcase_add_test(tc, rn_subtract_givenNULLandIV_returnsNULL);
+	tcase_add_test(tc, rn_subtract_givenIVandNULL_returnsNULL);
 
 	return tc;
 }
