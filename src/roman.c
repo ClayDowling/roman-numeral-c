@@ -3,15 +3,20 @@
 #include <string.h>
 #include "roman.h"
 
-const char *OVERFLOW = "Degenero";
-const char *ZERO = "Nil";
+static const char *OVERFLOW = "Degenero";
+static const char *ZERO = "Nil";
+static const unsigned RN_MAX = 3999;
 
-static unsigned roman_values[] = {500, 100, 50, 10, 5, 1};
+
+static unsigned roman_values[] = {1000, 500, 100, 50, 10, 5, 1};
 unsigned roman_values_len = sizeof(roman_values) / sizeof(unsigned);
 
 static unsigned should_subtract(unsigned left, unsigned right)
 {
 	switch(right) {
+	case 1000:
+		if (100 == left) return 900;
+		break;
 	case 500:
 		if (100 == left) return 400;
 		break;
@@ -33,8 +38,8 @@ static unsigned should_subtract(unsigned left, unsigned right)
 
 static int rn_can_display_with_subtraction(int target)
 {
-	int subtractible[] = {400, 90, 40, 9, 4};
-	int blocker[]      = {500, 100,50, 10, 5};
+	int subtractible[] = {900, 400, 90, 40, 9, 4};
+	int blocker[]      = {1000, 500, 100,50, 10, 5};
 	int len = sizeof(subtractible) / sizeof(int);
 	int i;
 
@@ -50,6 +55,8 @@ static int rn_can_display_with_subtraction(int target)
 static char* rn_subtractible_roman_numeral(int value)
 {
 	switch(value) {
+		case 900:
+			return "CM";
 		case 400:
 			return "CD";
 		case 90:
@@ -71,6 +78,7 @@ static int can_repeat(unsigned digit)
 	case 1:
 	case 10:
 	case 100:
+	case 1000:
 		return 1;
 	default:
 		return 0;
@@ -122,6 +130,8 @@ static unsigned rn_digit(char rn)
 			return 100;
 		case 'D':
 			return 500;
+		case 'M':
+			return 1000;
 		default:
 			return INVALID_NUMERAL;
 	}
@@ -142,6 +152,8 @@ static char rn_romandigit(int v)
 			return 'C';
 		case 500:
 			return 'D';
+		case 1000:
+			return 'M';
 		default:
 			return '\0';
 	}

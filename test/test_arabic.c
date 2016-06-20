@@ -14,7 +14,8 @@ static int test_value[] = {
 	19, 20, 21, 24,
 	25, 49, 50, 51,
 	99, 100, 101, 499, 
-	500, 501, 0, -1
+	500, 501, 0, -1,
+	1000, 1996
 	};
 static const char *expected_value[] = {
 	"I", "II", "III", "IV", 
@@ -22,7 +23,8 @@ static const char *expected_value[] = {
 	"XIX", "XX", "XXI", "XXIV", 
 	"XXV", "XLIX", "L", "LI", 
 	"XCIX", "C", "CI", "CDXCIX", 
-	"D", "DI", "Nil", "Degenero"
+	"D", "DI", "Nil", "Degenero",
+	"M", "MCMXCVI"
 	};
 
 
