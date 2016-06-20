@@ -16,7 +16,7 @@ static int expected_value[] = {  2 ,   6 ,   4 ,   9 ,    7 , INVALID_NUMERAL,
 START_TEST(rn_toint_translates_correctly)
 {
 	char *test;
-	char *actual;
+	int actual;
 	int expected;
 
 	test = test_value[_i];
