@@ -5,6 +5,8 @@
 
 const char *OVERFLOW = "Degenero";
 
+const char *ZERO = "Nil";
+
 static unsigned roman_values[] = {500, 100, 50, 10, 5, 1};
 unsigned roman_values_len = sizeof(roman_values) / sizeof(unsigned);
 
@@ -203,6 +205,13 @@ char* rn_toroman(int num)
 	int part_candidate;
 	int subtractible;
 
+	if (num < 0) {
+		return strdup(OVERFLOW);
+	}
+	if (0 == num) {
+		return strdup(ZERO);
+	}
+
 	memset((void*)roman, 0, sizeof(roman));
 
 	for(parts_pos = 0; 
@@ -225,7 +234,7 @@ char* rn_toroman(int num)
 	}
 
 	if (roman[0] == 0) {
-		strcpy(roman, "NaN");
+		strcpy(roman, OVERFLOW);
 	}
 	return strdup(roman);
 }
@@ -252,7 +261,6 @@ char* rn_subtract(const char *lhs, const char *rhs)
 {
 	unsigned ilhs;
 	unsigned irhs;
-	int difference;
 
 	if (NULL == lhs) return NULL;
 	if (NULL == rhs) return NULL;

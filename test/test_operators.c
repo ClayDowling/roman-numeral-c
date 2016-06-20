@@ -60,6 +60,17 @@ START_TEST(rn_subtract_givenIVandNULL_returnsNULL)
 }
 END_TEST
 
+START_TEST(rn_subtract_giveXandXX_returnsDegenero)
+{
+	ck_assert_str_eq(rn_subtract("X", "XX"), "Degenero");
+}
+END_TEST
+
+START_TEST(rn_subtract_givenXandX_returnsNil)
+{
+	ck_assert_str_eq(rn_subtract("X", "X"), "Nil");
+}
+END_TEST
 
 TCase* tcase_operators(void)
 {
@@ -75,6 +86,8 @@ TCase* tcase_operators(void)
 	tcase_add_test(tc, rn_subtract_givenCandXCIX_returnsI);
 	tcase_add_test(tc, rn_subtract_givenNULLandIV_returnsNULL);
 	tcase_add_test(tc, rn_subtract_givenIVandNULL_returnsNULL);
+	tcase_add_test(tc, rn_subtract_giveXandXX_returnsDegenero);
+	tcase_add_test(tc, rn_subtract_givenXandX_returnsNil);
 
 	return tc;
 }

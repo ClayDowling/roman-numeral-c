@@ -22,7 +22,7 @@ static const char *expected_value[] = {
 	"XIX", "XX", "XXI", "XXIV", 
 	"XXV", "XLIX", "L", "LI", 
 	"XCIX", "C", "CI", "CDXCIX", 
-	"D", "DI", "NaN", "NaN"
+	"D", "DI", "Nil", "Degenero"
 	};
 
 
