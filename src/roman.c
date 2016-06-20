@@ -4,27 +4,10 @@
 #include "roman.h"
 
 const char *OVERFLOW = "Degenero";
-
 const char *ZERO = "Nil";
 
 static unsigned roman_values[] = {500, 100, 50, 10, 5, 1};
 unsigned roman_values_len = sizeof(roman_values) / sizeof(unsigned);
-
-char *subtractable_numerals[] = {"CD", "XC", "XL", "IX", "IV", ""};
-unsigned subtractable_values[] = {400, 90, 40, 9, 4, 0};
-unsigned subtractable_len = sizeof(subtractable_values) / sizeof(unsigned);
-
-static int can_repeat(unsigned digit)
-{
-	switch(digit) {
-	case 1:
-	case 10:
-	case 100:
-		return 1;
-	default:
-		return 0;
-	}
-}
 
 static unsigned should_subtract(unsigned left, unsigned right)
 {
@@ -46,6 +29,52 @@ static unsigned should_subtract(unsigned left, unsigned right)
 		break;
 	}
 	return 0;
+}
+
+static int rn_can_display_with_subtraction(int target)
+{
+	int subtractible[] = {400, 90, 40, 9, 4};
+	int blocker[]      = {500, 100,50, 10, 5};
+	int len = sizeof(subtractible) / sizeof(int);
+	int i;
+
+	for(i=0; i < len; ++i) {
+		if (target >= subtractible[i] && target < blocker[i]) {
+			return subtractible[i];
+		}
+	}
+
+	return 0;
+}
+
+static char* rn_subtractible_roman_numeral(int value)
+{
+	switch(value) {
+		case 400:
+			return "CD";
+		case 90:
+			return "XC";
+		case 40:
+			return "XL";
+		case 9:
+			return "IX";
+		case 4:
+			return "IV";
+		default:
+			return "";
+	}
+}
+
+static int can_repeat(unsigned digit)
+{
+	switch(digit) {
+	case 1:
+	case 10:
+	case 100:
+		return 1;
+	default:
+		return 0;
+	}
 }
 
 static int rn_isvalid(int *candidate, int len)
@@ -141,40 +170,6 @@ static unsigned rn_sumdigits(int *digits, int size)
 
 	if (total < 1) return INVALID_NUMERAL;
 	return (unsigned)total;
-}
-
-static int rn_can_display_with_subtraction(int target)
-{
-	int subtractible[] = {400, 90, 40, 9, 4};
-	int blocker[]      = {500, 100,50, 10, 5};
-	int len = sizeof(subtractible) / sizeof(int);
-	int i;
-
-	for(i=0; i < len; ++i) {
-		if (target >= subtractible[i] && target < blocker[i]) {
-			return subtractible[i];
-		}
-	}
-
-	return 0;
-}
-
-static char* rn_subtractible_roman_numeral(int value)
-{
-	switch(value) {
-		case 400:
-			return "CD";
-		case 90:
-			return "XC";
-		case 40:
-			return "XL";
-		case 9:
-			return "IX";
-		case 4:
-			return "IV";
-		default:
-			return "";
-	}
 }
 
 unsigned rn_toint(const char* numeral)
