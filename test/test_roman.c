@@ -5,12 +5,22 @@
 
 #include "tcase_roman.h"
 
+Suite *app_suite(void)
+{
+	Suite *s;
+
+	s = suite_create("application");
+	
+	suite_add_tcase(s, tcase_app());
+
+	return s;
+}
+
 Suite *roman_suite(void)
 {
 	Suite *s;
-	TCase *tc_convert_single;
 
-	s = suite_create("Roman Numerals");
+	s = suite_create("roman-numerals");
 
 	suite_add_tcase(s, tcase_single_digits());
 	suite_add_tcase(s, tcase_complex_numerals());
@@ -28,6 +38,7 @@ int main(int argc, char **argv)
 
 	s = roman_suite();
 	runner = srunner_create(s);
+	srunner_add_suite(runner, app_suite());
 
 	srunner_run_all(runner, CK_NORMAL);
 	number_fails = srunner_ntests_failed(runner);

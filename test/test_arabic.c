@@ -23,7 +23,7 @@ static const char *expected_value[] = {
 	"XIX", "XX", "XXI", "XXIV", 
 	"XXV", "XLIX", "L", "LI", 
 	"XCIX", "C", "CI", "CDXCIX", 
-	"D", "DI", "Nil", "Degenero",
+	"D", "DI", "Nil", "Et cecidit in finem",
 	"M", "MCMXCVI"
 	};
 
@@ -45,7 +45,7 @@ TCase* tcase_toarabic(void)
 	TCase *tc;
 	int numtests = sizeof(test_value) / sizeof(int);
 
-	tc = tcase_create("Int to Roman Numeral");
+	tc = tcase_create("arabic_to_roman");
 	tcase_add_loop_test(tc, rn_toroman_fromint, 0, numtests);
 
 	return tc;

@@ -3,7 +3,7 @@
 #include <string.h>
 #include "roman.h"
 
-static const char *OVERFLOW = "Degenero";
+static const char *OVERFLOW = "Et cecidit in finem";
 static const char *ZERO = "Nil";
 static const unsigned RN_MAX = 3999;
 

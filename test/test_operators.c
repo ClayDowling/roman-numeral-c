@@ -2,6 +2,8 @@
  * Tests for operators
  */
 
+#define OVERFLOW "Et cecidit in finem"
+
 #include <check.h>
 
 #include "../src/roman.h"
@@ -24,9 +26,9 @@ START_TEST(rn_add_givenNULLrhs_returnsNull)
 }
 END_TEST
 
-START_TEST(rn_add_onOverflow_returnsDegenero)
+START_TEST(rn_add_onOverflow_returnsOverflow)
 {
-	ck_assert_str_eq(rn_add("MMM", "M"), "Degenero");
+	ck_assert_str_eq(rn_add("MMM", "M"), OVERFLOW);
 }
 END_TEST
 
@@ -60,9 +62,9 @@ START_TEST(rn_subtract_givenIVandNULL_returnsNULL)
 }
 END_TEST
 
-START_TEST(rn_subtract_giveXandXX_returnsDegenero)
+START_TEST(rn_subtract_giveXandXX_returnsOverflow)
 {
-	ck_assert_str_eq(rn_subtract("X", "XX"), "Degenero");
+	ck_assert_str_eq(rn_subtract("X", "XX"), OVERFLOW);
 }
 END_TEST
 
@@ -80,12 +82,12 @@ TCase* tcase_operators(void)
 	tcase_add_test(tc, rn_add_givenIVandV_returnsIX);
 	tcase_add_test(tc, rn_add_givenNULLlhs_returnsNull);
 	tcase_add_test(tc, rn_add_givenNULLrhs_returnsNull);
-	tcase_add_test(tc, rn_add_onOverflow_returnsDegenero);
+	tcase_add_test(tc, rn_add_onOverflow_returnsOverflow);
 	tcase_add_test(tc, rn_subtract_givenXandIV_returnsVI);
 	tcase_add_test(tc, rn_subtract_givenCandXCIX_returnsI);
 	tcase_add_test(tc, rn_subtract_givenNULLandIV_returnsNULL);
 	tcase_add_test(tc, rn_subtract_givenIVandNULL_returnsNULL);
-	tcase_add_test(tc, rn_subtract_giveXandXX_returnsDegenero);
+	tcase_add_test(tc, rn_subtract_giveXandXX_returnsOverflow);
 	tcase_add_test(tc, rn_subtract_givenXandX_returnsNil);
 	tcase_add_test(tc, rn_subtract_givenMCMLXXVIandMCMLXX_returnsVI);
 

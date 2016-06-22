@@ -12,4 +12,6 @@ TCase* tcase_complex_numerals(void);
 TCase* tcase_toarabic(void);
 TCase* tcase_operators(void);
 
+TCase* tcase_app(void);
+
 #endif
