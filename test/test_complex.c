@@ -33,7 +33,7 @@ TCase* tcase_complex_numerals(void)
 	TCase *tc;
 	int num_cases = sizeof(expected_value) / sizeof(int);
 
-	tc = tcase_create("Complex Numerals");
+	tc = tcase_create("complex_numerals");
 	tcase_add_loop_test(tc, rn_toint_translates_correctly, 0, num_cases);
 
 	return tc;

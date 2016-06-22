@@ -20,7 +20,7 @@ TCase *tcase_single_digits(void)
 	TCase *tc;
 	int num_cases = sizeof(expected_value) / sizeof(int);
 
-	tc= tcase_create("Single Digits");
+	tc= tcase_create("single_digits");
 	tcase_add_loop_test(tc, rn_toint_singledigit_test, 0, num_cases);
 
 	return tc;

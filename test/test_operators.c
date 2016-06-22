@@ -78,7 +78,7 @@ TCase* tcase_operators(void)
 {
 	TCase *tc;
 
-	tc = tcase_create("Operators");
+	tc = tcase_create("operators");
 	tcase_add_test(tc, rn_add_givenIVandV_returnsIX);
 	tcase_add_test(tc, rn_add_givenNULLlhs_returnsNull);
 	tcase_add_test(tc, rn_add_givenNULLrhs_returnsNull);
