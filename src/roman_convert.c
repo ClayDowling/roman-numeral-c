@@ -113,7 +113,7 @@ static int rn_isvalid(int *candidate, int len)
 	return 1;
 }
 
-static unsigned rn_digit(char rn)
+static unsigned rn_int(char rn)
 {
 	switch(rn) {
 		case 'I':
@@ -197,7 +197,7 @@ unsigned rn_toint(const char* numeral)
 	memset(values, 0, sizeof(values));
 
 	for(pos = 0; numeral[pos]; ++pos) {
-		values[pos] = rn_digit(numeral[pos]);
+		values[pos] = rn_int(numeral[pos]);
 	}
 
 	if (rn_isvalid(values, len) == 0) return INVALID_NUMERAL;
