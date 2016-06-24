@@ -8,10 +8,10 @@
 
 static char *test_value[]   = {"II", "VI", "IV", "IX", "VII", "IIII",
 	"XXXX"          , "CCCC",         "VV"           , "IIV",
-	"XCIX"};
+	"XCIX", "XXXXXXXXXXXXXXXXXXXXXX"};
 static int expected_value[] = {  2 ,   6 ,   4 ,   9 ,    7 , INVALID_NUMERAL,
 	INVALID_NUMERAL, INVALID_NUMERAL, INVALID_NUMERAL, INVALID_NUMERAL,
-	99};
+	99, INVALID_NUMERAL};
 
 START_TEST(rn_toint_translates_correctly)
 {

@@ -9,7 +9,7 @@ TEST_OBJECTS = test_roman.o test_single.o test_complex.o test_arabic.o \
 test: test_roman
 	./test_roman
 
-test_roman: roman.o roman_app.o $(TEST_OBJECTS)
+test_roman: roman_app.o $(TEST_OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 clean:
