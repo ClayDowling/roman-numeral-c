@@ -6,10 +6,6 @@
 #ifndef _ROMAN_H_
 #define _ROMAN_H_
 
-#define INVALID_NUMERAL 0
-
-unsigned rn_toint(const char*);
-char* rn_toroman(int);
 char* rn_add(const char*, const char*);
 char* rn_subtract(const char*, const char*);
 

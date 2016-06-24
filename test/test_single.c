@@ -3,7 +3,7 @@
 
 #include <check.h>
 
-#include "../src/roman.h"
+#include "../src/roman_convert.h"
 
 static char *test_value[] = {"J", "I", "V", "X", "L", "C", "D", "M", NULL};
 static int expected_value[] = {INVALID_NUMERAL, 1, 5, 10, 50, 100, 500, 1000,
@@ -25,4 +25,3 @@ TCase *tcase_single_digits(void)
 
 	return tc;
 }
-

@@ -1,6 +1,6 @@
 
 CFLAGS = `pkg-config --cflags check`
-LIBS = `pkg-config --libs check`
+LIBS = `pkg-config --libs check` -L../src -lroman -lroman_convert
 VPATH=../src
 
 TEST_OBJECTS = test_roman.o test_single.o test_complex.o test_arabic.o \

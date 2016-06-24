@@ -4,7 +4,7 @@
 
 #include <check.h>
 #include "tcase_roman.h"
-#include "../src/roman.h"
+#include "../src/roman_convert.h"
 
 static char *test_value[]   = {"II", "VI", "IV", "IX", "VII", "IIII",
 	"XXXX"          , "CCCC",         "VV"           , "IIV",
@@ -22,7 +22,7 @@ START_TEST(rn_toint_translates_correctly)
 	test = test_value[_i];
 	expected = expected_value[_i];
 	actual = rn_toint(test);
-	ck_assert_msg(actual == expected, 
+	ck_assert_msg(actual == expected,
 			"rn_toint(%s) expected: %d actual: %d",
 			test, expected, actual);
 }

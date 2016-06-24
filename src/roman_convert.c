@@ -182,64 +182,67 @@ static unsigned rn_sumdigits(int *digits, int size)
 	return (unsigned)total;
 }
 
+#define MAX_NUMERAL_LENGTH 20
+
 unsigned rn_toint(const char* numeral)
 {
 	unsigned pos;
-	int *values;
+	static int values[MAX_NUMERAL_LENGTH];
 	int len;
+	unsigned sum;
 
 	if (NULL == numeral) return INVALID_NUMERAL;
 
 	len = strlen(numeral);
-	values = (int*)calloc(len + 1, sizeof(int));
+	memset(values, 0, sizeof(values));
 
 	for(pos = 0; numeral[pos]; ++pos) {
 		values[pos] = rn_digit(numeral[pos]);
 	}
 
 	if (rn_isvalid(values, len) == 0) return INVALID_NUMERAL;
-	return rn_sumdigits(values, len);
-
+	sum = rn_sumdigits(values, len);
+	return sum;
 }
 
-char* rn_toroman(int num)
+void rn_toroman(int num, char *buffer, size_t buffer_length)
 {
-	static char roman[20];
 	int roman_pos = 0;
 	int parts_pos;
 	int part_candidate;
 	int subtractible;
 
+	memset((void*)buffer, 0, sizeof(buffer_length));
+
 	if (num < 0) {
-		return strdup(OVERFLOW);
+		strncpy(buffer, OVERFLOW, buffer_length);
+		return;
 	}
 	if (0 == num) {
-		return strdup(ZERO);
+		strncpy(buffer, ZERO, buffer_length);
+		return;
 	}
-
-	memset((void*)roman, 0, sizeof(roman));
 
 	for(parts_pos = 0;
 			num > 0 &&
 			parts_pos < roman_values_len &&
-			roman_pos < (sizeof(roman) - 1);
+			roman_pos < (buffer_length - 1);
 	    ++parts_pos) {
 		part_candidate = roman_values[parts_pos];
 		while (part_candidate <= num) {
 			subtractible = rn_can_display_with_subtraction(num);
-			if (subtractible != 0) {
-				strcat(roman, rn_subtractible_roman_numeral(subtractible));
+			if (subtractible) {
+				strcat(buffer, rn_subtractible_roman_numeral(subtractible));
 				roman_pos += 2;
 				num -= subtractible;
 			} else {
-				roman[roman_pos++] = rn_romandigit(part_candidate);
+				buffer[roman_pos++] = rn_romandigit(part_candidate);
 				num -= part_candidate;
 			}
 		}
 	}
 
-	if (roman[0] == 0) {
-		strcpy(roman, OVERFLOW);
+	if (buffer[0] == 0) {
+		strcpy(buffer, OVERFLOW);
 	}
-	return strdup(roman);
 }
