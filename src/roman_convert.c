@@ -212,7 +212,7 @@ void rn_toroman(int num, char *buffer, size_t buffer_length)
 	int part_candidate;
 	int subtractible;
 
-	memset((void*)buffer, 0, sizeof(buffer_length));
+	memset((void*)buffer, 0, buffer_length);
 
 	if (num < 0) {
 		strncpy(buffer, OVERFLOW, buffer_length);
