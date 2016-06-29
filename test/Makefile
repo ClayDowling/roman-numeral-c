@@ -1,6 +1,6 @@
 
-CFLAGS != pkg-config --cflags check
-LIBS != pkg-config --libs check
+CFLAGS = `pkg-config --cflags check`
+LIBS = `pkg-config --libs check`
 VPATH=../src
 
 test: test_roman

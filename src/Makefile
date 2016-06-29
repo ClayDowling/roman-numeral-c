@@ -5,3 +5,6 @@ OBJECTS=roman.o
 all: $(OBJECTS)
 
 roman.c: roman.h
+
+clean:
+	rm -f *.o
